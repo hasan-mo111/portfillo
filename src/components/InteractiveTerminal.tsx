@@ -1,12 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Terminal, Send, Play, Sparkles, CornerDownLeft } from 'lucide-react';
 import { PERSONAL_INFO, PROJECTS_LIST, EXPERIENCE_LIST, EDUCATION_LIST } from '../data/portfolioData';
+import { Language, TRANSLATIONS } from '../data/translations';
 
 interface InteractiveTerminalProps {
+  language: Language;
   onPrintCV: () => void;
 }
 
-export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ onPrintCV }) => {
+export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ language, onPrintCV }) => {
+  const t = TRANSLATIONS[language].terminal;
+  const isAr = language === 'ar';
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<Array<{ command: string; output: React.ReactNode }>>([
     {
@@ -14,8 +18,8 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ onPrin
       output: (
         <div className="space-y-1 text-slate-300">
           <p className="text-cyan-400 font-bold">========================================================</p>
-          <p className="text-emerald-400 font-bold">HASAN MOHAMAD // INTELLIGENT SYSTEMS & FULL-STACK CORE</p>
-          <p className="text-slate-400">Type <span className="text-amber-400 font-semibold">'help'</span> to see available commands or click quick prompts below.</p>
+          <p className="text-emerald-400 font-bold">{isAr ? "حسن محمد // هندسة الروبوت والبرمجيات الشاملة" : "HASAN MOHAMAD // INTELLIGENT SYSTEMS & FULL-STACK CORE"}</p>
+          <p className="text-slate-400">{isAr ? "اكتب 'help' أو 'مساعدة' لرؤية الأوامر المتاحة." : "Type 'help' to see available commands or click quick prompts below."}</p>
           <p className="text-cyan-400 font-bold">========================================================</p>
         </div>
       )
@@ -88,13 +92,22 @@ export const InteractiveTerminal: React.FC<InteractiveTerminalProps> = ({ onPrin
       case 'experience':
         response = (
           <div className="space-y-2 text-slate-300">
-            {EXPERIENCE_LIST.map((exp, idx) => (
-              <div key={idx} className="border-l-2 border-cyan-500 pl-2">
-                <p className="text-cyan-300 font-bold">{exp.role} @ {exp.company}</p>
-                <p className="text-slate-400 text-xs">{exp.period} | {exp.location}</p>
-                <p className="text-slate-300 text-xs mt-0.5">{exp.highlights[0]}</p>
-              </div>
-            ))}
+            {EXPERIENCE_LIST.map((exp, idx) => {
+              const role = isAr ? exp.roleAr : exp.role;
+              const company = isAr ? exp.companyAr : exp.company;
+              const period = isAr ? exp.periodAr : exp.period;
+              const location = isAr ? exp.locationAr : exp.location;
+              const highlights = isAr ? exp.highlightsAr : exp.highlights;
+              return (
+                <div key={idx} className="border-l-2 border-cyan-500 pl-2">
+                  <p className="text-cyan-300 font-bold">{role} @ {company}</p>
+                  <p className="text-slate-400 text-xs">{period} | {location}</p>
+                  <ul className="text-slate-300 text-xs mt-0.5 list-disc pl-3">
+                    {highlights.map((h, i) => <li key={i}>{h}</li>)}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         );
         break;

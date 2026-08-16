@@ -11,11 +11,13 @@ import { InteractiveTerminal } from './components/InteractiveTerminal';
 import { ContactSection } from './components/ContactSection';
 import { PrintableCV } from './components/PrintableCV';
 import { CVPreviewModal } from './components/CVPreviewModal';
+import { Language, TRANSLATIONS } from './data/translations';
 import { PERSONAL_INFO } from './data/portfolioData';
 import { ArrowUp, Download, Heart, Terminal, Cpu } from 'lucide-react';
 
 export default function PortfolioPage() {
   const [isDark, setIsDark] = useState<boolean>(true);
+  const [language, setLanguage] = useState<Language>('en');
   const [isCVModalOpen, setIsCVModalOpen] = useState<boolean>(false);
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
@@ -54,8 +56,8 @@ export default function PortfolioPage() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
       isDark 
-        ? 'bg-[#0b1329] text-slate-100 cyber-grid-bg' 
-        : 'bg-slate-50 text-slate-900 cyber-grid-bg-light'
+        ? 'bg-[#0b1329] text-slate-100 cyber-grid-bg bg-academic-pattern' 
+        : 'bg-slate-50 text-slate-900 cyber-grid-bg-light bg-academic-pattern'
     }`}>
       
       {/* 
@@ -71,6 +73,8 @@ export default function PortfolioPage() {
         <Navbar
           isDark={isDark}
           setIsDark={setIsDark}
+          language={language}
+          setLanguage={setLanguage}
           onOpenCVModal={() => setIsCVModalOpen(true)}
           onPrintCV={handlePrintCV}
         />
@@ -79,27 +83,28 @@ export default function PortfolioPage() {
         <main className="relative">
           {/* HERO SECTION */}
           <HeroSection
+            language={language}
             onPrintCV={handlePrintCV}
             onOpenCVModal={() => setIsCVModalOpen(true)}
           />
 
           {/* PROFESSIONAL EXPERIENCE */}
-          <ExperienceSection />
+          <ExperienceSection language={language} />
 
           {/* ACADEMIC FOUNDATION & EDUCATION */}
-          <EducationSection />
+          <EducationSection language={language} />
 
           {/* PROJECTS & RESEARCH SHOWCASE (With Filter Tabs) */}
-          <ProjectsGallery />
+          <ProjectsGallery language={language} />
 
           {/* TECHNICAL SKILLS & TOOLKIT */}
-          <SkillsSection />
+          <SkillsSection language={language} />
 
           {/* INTERACTIVE CYBER CLI TERMINAL */}
-          <InteractiveTerminal onPrintCV={handlePrintCV} />
+          <InteractiveTerminal language={language} onPrintCV={handlePrintCV} />
 
           {/* CONTACT & MESSAGE COMPOSER */}
-          <ContactSection onPrintCV={handlePrintCV} />
+          <ContactSection language={language} onPrintCV={handlePrintCV} />
         </main>
 
         {/* FOOTER */}
@@ -107,8 +112,8 @@ export default function PortfolioPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 font-mono-code text-slate-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{PERSONAL_INFO.name} ({PERSONAL_INFO.nameArabic})</span>
-              <span className="text-slate-500">• {PERSONAL_INFO.role}</span>
+              <span>{language === 'ar' ? PERSONAL_INFO.nameArabic : PERSONAL_INFO.name} ({language === 'ar' ? PERSONAL_INFO.name : PERSONAL_INFO.nameArabic})</span>
+              <span className="text-slate-500">• {language === 'ar' ? PERSONAL_INFO.roleArabic : PERSONAL_INFO.role}</span>
             </div>
 
             <div className="flex items-center gap-4">
@@ -117,7 +122,7 @@ export default function PortfolioPage() {
                 className="hover:text-amber-400 transition-colors flex items-center gap-1 cursor-pointer font-mono-code"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Print Single-Page CV</span>
+                <span>{language === 'ar' ? TRANSLATIONS.ar.footer.printCV : TRANSLATIONS.en.footer.printCV}</span>
               </button>
               <span>•</span>
               <a 
@@ -129,7 +134,7 @@ export default function PortfolioPage() {
                 @{PERSONAL_INFO.instagram}
               </a>
               <span>•</span>
-              <span>{PERSONAL_INFO.location}</span>
+              <span>{language === 'ar' ? PERSONAL_INFO.locationArabic : PERSONAL_INFO.location}</span>
             </div>
           </div>
         </footer>
@@ -147,6 +152,7 @@ export default function PortfolioPage() {
 
         {/* A4 CV MODAL PREVIEW */}
         <CVPreviewModal
+          language={language}
           isOpen={isCVModalOpen}
           onClose={() => setIsCVModalOpen(false)}
           onPrint={handlePrintCV}
