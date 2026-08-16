@@ -1,4 +1,5 @@
 import React from 'react';
+import avatarImage from '../assets/images/hasan_profile.jpg';
 import { 
   PERSONAL_INFO 
 } from '../data/portfolioData';
@@ -210,13 +211,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onPrintCV, o
               <div className="flex items-center gap-4 pb-5 mb-5 border-b border-slate-200 dark:border-white/10">
                 <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-500 via-sky-500 to-emerald-500 p-0.5 shrink-0 shadow-lg shadow-amber-500/20 group">
                   <img
-                    src={PERSONAL_INFO.avatarUrl}
+                    src={avatarImage}
                     alt={PERSONAL_INFO.name}
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-top rounded-[14px] bg-slate-900"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/hasan_profil.jpg';
-                    }}
                   />
                   <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-[#0b1329] flex items-center justify-center shadow" title="Available for Projects & Research">
                     <CheckCircle className="w-3 h-3 text-white" />
