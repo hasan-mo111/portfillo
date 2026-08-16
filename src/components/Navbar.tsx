@@ -40,7 +40,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               src={PERSONAL_INFO.avatarUrl}
               alt={PERSONAL_INFO.name}
               referrerPolicy="no-referrer"
-              className="w-full h-full object-cover object-top rounded-[9px]"
+              className="w-full h-full object-cover object-center rounded-[9px]"
               onError={(e) => {
                 // Fallback to local image path if needed
                 (e.target as HTMLImageElement).src = '/hasan_profil.jpg';
