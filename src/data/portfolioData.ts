@@ -70,7 +70,7 @@ export const PERSONAL_INFO = {
   phone: "+963-980-490-620",
   location: "Syria",
   locationArabic: "سوريا",
-  avatarUrl: "/hasan_profil.jpg",
+  avatarUrl: null,
   tamooraUrl: "https://tamoora-sy.com",
   instagram: "hasan_ali_m0hamad",
   instagramUrl: "https://instagram.com/hasan_ali_m0hamad",
