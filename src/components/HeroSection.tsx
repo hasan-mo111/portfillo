@@ -215,7 +215,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onPrintCV, o
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover object-top rounded-[14px] bg-slate-900"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'public/hasan_profil.jpg';
+                      (e.target as HTMLImageElement).src = '/hasan_profil.jpg';
                     }}
                   />
                   <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-[#0b1329] flex items-center justify-center shadow" title="Available for Projects & Research">

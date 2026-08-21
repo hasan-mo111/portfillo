@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="w-full h-full object-cover object-center rounded-[9px]"
               onError={(e) => {
                 // Fallback to local image path if needed
-                (e.target as HTMLImageElement).src = 'public/hasan_profil.jpg';
+                (e.target as HTMLImageElement).src = '/hasan_profil.jpg';
               }}
             />
           </div>
